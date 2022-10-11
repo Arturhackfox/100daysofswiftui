@@ -1,0 +1,205 @@
+
+
+
+
+// closure "annonymous func"
+let sayHello = {(name: String) -> String in
+    "Hello \(name)"
+}
+
+sayHello("Arthur")
+
+
+
+// passing inside.sorted() own .sorted func
+
+let names = ["Tiffany", "Tabic", "Dinna", "Antalia", "Suzzane"]
+
+func captainSortNames (name1: String, name2: String) -> Bool {
+    if name1 == "Suzzane" {
+        return true
+    } else if name2 == "Suzzane" {
+        return false
+    }
+    return name1 < name2
+}
+let sortedNames = names.sorted(by: captainSortNames)
+
+// using clousures inside .sorted method
+
+let sortedNames2 = names.sorted(by: {(name1: String,name2: String) -> Bool in
+    if name1 == "Suzzane" {
+        return true
+    } else if name2 == "Suzzane"{
+        return false
+    }
+    return name1 < name2
+})
+
+
+print(sortedNames2)
+
+
+
+
+var pickFruit = { (name: String) in
+    switch name {
+    case "strawberry":
+        fallthrough
+    case "raspberry":
+       fallthrough
+    default:
+        print("We don't have those.")
+    }
+}
+
+pickFruit("strawberry")
+
+
+
+var cutGrass = {(currentLength: Double) in
+    switch currentLength {
+    case 0...1:
+        print("That's too short")
+    case 1...3:
+        print("It's already the right length")
+    default:
+        print("That's perfect.")
+    }
+}
+
+cutGrass(2)
+
+
+let numberz = ["88", "1", "7"]
+
+let sortednumbers = numberz.sorted{
+    $0 < $1
+}
+
+print(sortednumbers)
+
+
+// short closures examples
+
+let Tnames = names.filter{$0.hasPrefix("T")}
+
+print(Tnames)
+
+
+let upperCasedNames = names.map{$0.uppercased()}
+
+print(upperCasedNames)
+
+
+let names2 = ["Tiffany", "Tabic", "Dinna", "Antalia", "Suzzane"]
+
+let reverseSorted = names2.sorted{
+    $0 >  $1
+}
+
+print(reverseSorted)
+
+
+// Func inside func as parameter
+
+func makeArray (size: Int, using generator: () -> Int) -> [Int] {
+    
+    var numbers = [Int]()
+    
+    for _ in 0..<size {
+        
+        let newNumber = generator()
+        numbers.append(newNumber)
+    }
+    return numbers
+}
+
+let newArray = makeArray(size: 10) {
+    Int.random(in: 1...20)
+}
+
+print(newArray)
+
+
+// func multiple functions inside function
+
+func listToDo (first: () -> Void, second: () -> Void, third: () -> Void) {
+    print("About to start go to work")
+    first()
+    print("Time to go for a lunch")
+    second()
+    print("Let's go home")
+    third()
+}
+
+
+listToDo{
+    print("it's 9 am")
+} second: {
+    print("it's 12:30")
+} third: {
+    print("it's 7 pm")
+}
+
+
+let myStyle = {
+    print("I like baggy clothes")
+}
+
+func chooseStyle(name: String, for person: () -> Void){
+    print("My name is \(name)")
+    person()
+}
+
+print(chooseStyle(name: "Arthur"){
+    myStyle()
+})
+
+// example of trailing closures
+func cleanOutDoor (_ place: () -> Void) {
+    print("I love clean garden")
+    place()
+    print("let's clean it")
+}
+
+cleanOutDoor {
+    print("Swimming Pool")
+}
+
+
+func clean(tasks: () -> Void) {
+    print("time to clean !")
+    tasks()
+}
+
+clean{
+    print("firstly clean the kitchen")
+    print("then bedroom")
+    print("and lastly clean the toilet")
+}
+
+
+// MARK: checkpoint 5
+
+let luckyNumbers = [7, 4, 38, 21, 16, 15, 12, 33, 31, 49]
+
+let filteredLuckynumbers = luckyNumbers.filter{
+    !$0.isMultiple(of: 2)
+}
+print(filteredLuckynumbers)
+
+
+let sortedLuckyNumers = filteredLuckynumbers.sorted{
+    $0 < $1
+}
+
+print(sortedLuckyNumers)
+
+let finalLuckynumbers = sortedLuckyNumers.map{
+    print("\($0) is a lucky number")
+}
+
+
+
+
